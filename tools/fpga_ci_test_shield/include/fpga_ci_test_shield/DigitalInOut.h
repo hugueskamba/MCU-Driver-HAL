@@ -1,5 +1,4 @@
-/* mbed Microcontroller Library
- * Copyright (c) 2006-2019 ARM Limited
+/* Copyright (c) 2006-2021 Arm Limited
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,9 +16,6 @@
 #ifndef MBED_DIGITALINOUT_H
 #define MBED_DIGITALINOUT_H
 
-#include "platform/platform.h"
-
-#include "interfaces/InterfaceDigitalInOut.h"
 #include "hal/gpio_api.h"
 
 namespace mbed {

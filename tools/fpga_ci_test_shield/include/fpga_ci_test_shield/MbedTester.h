@@ -1,12 +1,11 @@
-/*
- * Copyright (c) 2019, Arm Limited and affiliates.
+/* Copyright (c) 2019-2021 Arm Limited
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -30,7 +29,7 @@
 #include "platform/Callback.h"
 #endif // EXTRA_DEPENDENCIES_REQUIRED__MBEDTESTER_FW_UPDATE
 
-#include "drivers/DigitalInOut.h"
+#include "DigitalInOut.h"
 
 /**
  * The base class for controlling the FPGA CI Test Shield

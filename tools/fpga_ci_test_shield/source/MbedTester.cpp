@@ -1,12 +1,11 @@
-/*
- * Copyright (c) 2019, Arm Limited and affiliates.
+/* Copyright (c) 2019-2021 Arm Limited
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,13 +14,13 @@
  * limitations under the License.
  */
 
-#include "MbedTester.h"
-#include "fpga_config.h"
-#include "BlockDevice.h"
-#include "rtos/ThisThread.h"
-#include "platform/mbed_wait_api.h"
-#include "platform/mbed_error.h"
-#include "drivers/MbedCRC.h"
+#include <cstring>
+
+#include "bootstrap/mbed_assert.h"
+#include "bootstrap/mbed_error.h"
+#include "bootstrap/mbed_wait_api.h"
+#include "fpga_ci_test_shield/fpga_config.h"
+#include "fpga_ci_test_shield/MbedTester.h"
 #include "utest/utest_print.h"
 
 #define mbed_tester_printf(...)
@@ -1741,7 +1740,7 @@ uint8_t MbedTester::get_pwm_cycles_high()
 
 uint16_t MbedTester::get_analogmuxin_measurement()
 {
-    rtos::ThisThread::sleep_for(1);//wait for value to stabalize
+    wait_us(1000000); //wait for value to stabalize
     //take snapshot of conversion value to make safe for reading
     set_snapshot();
     uint16_t an_mux_analogin_measurement = 0;

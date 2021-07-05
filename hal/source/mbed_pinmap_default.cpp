@@ -16,8 +16,8 @@
 
 #include <stdlib.h>
 #include "hal/pinmap.h"
-#include "platform/mbed_toolchain.h"
-#include "platform/mbed_assert.h"
+#include "bootstrap/mbed_toolchain.h"
+#include "bootstrap/mbed_assert.h"
 #include "device.h"
 #include "hal/serial_api.h"
 #include "hal/PinNameAliases.h"

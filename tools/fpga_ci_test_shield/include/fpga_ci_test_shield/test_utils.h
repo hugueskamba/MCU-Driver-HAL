@@ -1,12 +1,11 @@
-/*
- * Copyright (c) 2019, Arm Limited and affiliates.
+/* Copyright (c) 2019-2021 Arm Limited
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -18,7 +17,12 @@
 #ifndef TEST_UTILS_H
 #define TEST_UTILS_H
 
+#include <cstdio>
+#include <cstring>
 #include <list>
+#include "hal/pinmap.h"
+#include "PinNames.h"
+#include "utest/utest_print.h"
 
 #define UART_NAME         "UART"
 #define UARTNOFC_NAME     "UART-no-FC"
@@ -469,6 +473,7 @@ public:
  * pin set to use for testing.
  */
 
+#include "hal/gpio_api.h"
 struct GPIOMaps {
     static const PinMap *maps[];
     static const char *const pin_type_names[];
@@ -480,7 +485,6 @@ const char *const GPIOMaps::name = GPIO_NAME;
 typedef Port<1, GPIOMaps, DefaultFormFactor, TF1> GPIOPort;
 
 #if DEVICE_INTERRUPTIN
-#include "gpio_irq_api.h"
 struct GPIOIRQMaps {
     static const PinMap *maps[];
     static const char *const pin_type_names[];
@@ -493,7 +497,7 @@ typedef Port<1, GPIOIRQMaps, DefaultFormFactor, TF1> GPIOIRQPort;
 #endif
 
 #if DEVICE_SPI
-#include "spi_api.h"
+#include "hal/spi_api.h"
 struct SPIMaps {
     static const PinMap *maps[];
     static const char *const pin_type_names[];
@@ -525,8 +529,8 @@ const char *const SPISlaveMaps::name = SPISLAVE_NAME;
 typedef Port<4, SPISlaveMaps, DefaultFormFactor, TF4> SPISlavePort;
 #endif
 
-#if DEVICE_I2C
-#include "i2c_api.h"
+#if DEVICE_I2C && 0
+#include "hal/i2c_api.h"
 struct I2CMaps {
     static const PinMap *maps[];
     static const char *const pin_type_names[];
@@ -538,8 +542,8 @@ const char *const I2CMaps::name = I2C_NAME;
 typedef Port<2, I2CMaps, DefaultFormFactor, TF2> I2CPort;
 #endif
 
-#if DEVICE_PWMOUT
-#include "pwmout_api.h"
+#if DEVICE_PWMOUT && 0
+#include "hal/pwmout_api.h"
 struct PWMMaps {
     static const PinMap *maps[];
     static const char *const pin_type_names[];
@@ -551,8 +555,8 @@ const char *const PWMMaps::name = PWM_NAME;
 typedef Port<1, PWMMaps, DefaultFormFactor, TF1> PWMPort;
 #endif
 
-#if DEVICE_ANALOGIN
-#include "analogin_api.h"
+#if DEVICE_ANALOGIN && 0
+#include "hal/analogin_api.h"
 struct AnaloginMaps {
     static const PinMap *maps[];
     static const char *const pin_type_names[];
@@ -564,8 +568,8 @@ const char *const AnaloginMaps::name = ANALOGIN_NAME;
 typedef Port<1, AnaloginMaps, DefaultFormFactor, TF1> AnaloginPort;
 #endif
 
-#if DEVICE_ANALOGOUT
-#include "analogout_api.h"
+#if DEVICE_ANALOGOUT && 0
+#include "hal/analogout_api.h"
 struct AnalogoutMaps {
     static const PinMap *maps[];
     static const char *const pin_type_names[];
@@ -577,7 +581,7 @@ const char *const AnalogoutMaps::name = ANALOGOUT_NAME;
 typedef Port<1, AnalogoutMaps, DefaultFormFactor, TF1> AnalogoutPort;
 #endif
 
-#if DEVICE_SERIAL
+#if DEVICE_SERIAL && 0
 #if DEVICE_SERIAL_FC
 #include "hal/serial_api.h"
 struct UARTMaps {

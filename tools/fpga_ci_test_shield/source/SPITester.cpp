@@ -1,12 +1,11 @@
-/*
- * Copyright (c) 2019, Arm Limited and affiliates.
+/* Copyright (c) 2019-2021 Arm Limited
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -15,8 +14,9 @@
  * limitations under the License.
  */
 
-#include "SPITester.h"
-#include "fpga_config.h"
+#include "bootstrap/mbed_assert.h"
+#include "fpga_ci_test_shield/fpga_config.h"
+#include "fpga_ci_test_shield/SPITester.h"
 
 uint16_t SPITester::get_transfer_count(uint32_t addr_transfers, uint32_t size_transfers)
 {

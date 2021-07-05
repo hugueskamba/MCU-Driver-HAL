@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-#include "hal/gpio_irq_api.h"
 
 #if DEVICE_INTERRUPTIN
 
-#include "platform/mbed_toolchain.h"
+#include "bootstrap/mbed_toolchain.h"
 #include "hal/gpio_api.h"
 
 MBED_WEAK const PinMap *gpio_irq_pinmap()

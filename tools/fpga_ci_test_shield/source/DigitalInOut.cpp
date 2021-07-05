@@ -1,5 +1,4 @@
-/* mbed Microcontroller Library
- * Copyright (c) 2006-2019 ARM Limited
+/* Copyright (c) 2006-2021 Arm Limited
  * SPDX-License-Identifier: Apache-2.0
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,9 +14,8 @@
  * limitations under the License.
  */
 
-#include "drivers/DigitalInOut.h"
-
-#include "platform/mbed_critical.h"
+#include "fpga_ci_test_shield/DigitalInOut.h"
+#include "bootstrap/mbed_critical.h"
 
 namespace mbed {
 

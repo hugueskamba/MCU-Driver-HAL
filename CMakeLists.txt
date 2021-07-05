@@ -175,6 +175,9 @@ add_library(test-harness INTERFACE)
 add_subdirectory(tools/unity)
 add_subdirectory(tools/utest)
 
+add_library(mbed-fpga-ci-test-shield INTERFACE)
+add_subdirectory(tools/fpga_ci_test_shield)
+
 # HAL tests
 add_subdirectory(tests/mbed_hal/crc EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/echo EXCLUDE_FROM_ALL)
