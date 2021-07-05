@@ -18,9 +18,18 @@
 #ifndef MBED_TESTER_H
 #define MBED_TESTER_H
 
+// When set to 0, this disables all the FW handling features like the
+// fw-update. Setting this back ON will require some additional work
+// on dependencies.
+#define EXTRA_DEPENDENCIES_REQUIRED__MBEDTESTER_FW_UPDATE 0
+
 #include "DynamicPinList.h"
+
+#if EXTRA_DEPENDENCIES_REQUIRED__MBEDTESTER_FW_UPDATE
 #include "platform/FileHandle.h"
 #include "platform/Callback.h"
+#endif // EXTRA_DEPENDENCIES_REQUIRED__MBEDTESTER_FW_UPDATE
+
 #include "drivers/DigitalInOut.h"
 
 /**
@@ -191,6 +200,7 @@ public:
      */
     void set_control_pins_manual(PinName clk, PinName mosi, PinName miso, PinName aux);
 
+#if EXTRA_DEPENDENCIES_REQUIRED__MBEDTESTER_FW_UPDATE
     /**
      * Read FPGA CI Test Shield firmware
      *
@@ -230,6 +240,7 @@ public:
      * @return true if firmware was successfully applied, false otherwise
      */
     bool firmware_update(mbed::FileHandle *src, mbed::Callback<void(uint8_t)> progress = mbed::Callback<void(uint8_t)>());
+#endif // EXTRA_DEPENDENCIES_REQUIRED__MBEDTESTER_FW_UPDATE
 
     /**
      * Map a physical pin to the given logical pin

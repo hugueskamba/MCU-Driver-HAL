@@ -164,6 +164,7 @@ static bool mbed_tester_test(mbed::DigitalInOut *clk, mbed::DigitalInOut *mosi, 
 }
 
 
+#if EXTRA_DEPENDENCIES_REQUIRED__MBEDTESTER_FW_UPDATE
 class MbedTesterBlockDevice : public BlockDevice {
 public:
 
@@ -579,6 +580,7 @@ static bool _firmware_set_active_bank(BlockDevice &flash, bool second_bank)
 
     return true;
 }
+#endif // EXTRA_DEPENDENCIES_REQUIRED__MBEDTESTER_FW_UPDATE
 
 MbedTester::MbedTester(const PinList *form_factor, const PinList *exclude_pins)
     : _form_factor(form_factor), _exclude_pins(exclude_pins), _control_auto(true), _control_valid(false),
@@ -649,6 +651,7 @@ void MbedTester::set_control_pins_manual(PinName clk, PinName mosi, PinName miso
     _control_valid = true;
 }
 
+#if EXTRA_DEPENDENCIES_REQUIRED__MBEDTESTER_FW_UPDATE
 bool MbedTester::firmware_dump(mbed::FileHandle *dest, mbed::Callback<void(uint8_t)> progress)
 {
     _update_control_pins();
@@ -940,6 +943,7 @@ bool MbedTester::firmware_update(mbed::FileHandle *src, mbed::Callback<void(uint
     sys_pin_mode_disabled();
     return true;
 }
+#endif // EXTRA_DEPENDENCIES_REQUIRED__MBEDTESTER_FW_UPDATE
 
 void MbedTester::pin_map_set(PinName physical, LogicalPin logical)
 {
