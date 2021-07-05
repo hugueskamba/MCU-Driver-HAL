@@ -20,6 +20,8 @@
 #ifndef MBED_FPGA_GPIO_TEST_H
 #define MBED_FPGA_GPIO_TEST_H
 
+#include "hal/gpio_api.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif

@@ -23,7 +23,7 @@ target_include_directories(mbed-core
 
 target_sources(mbed-core
     INTERFACE
-        # source/mbed_compat.c
+        source/mbed_compat.c
         source/mbed_critical_section_api.c
         source/mbed_flash_api.c
         source/mbed_gpio.c

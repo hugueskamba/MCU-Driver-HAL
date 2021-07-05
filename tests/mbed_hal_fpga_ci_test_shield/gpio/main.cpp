@@ -20,14 +20,16 @@
 #error [NOT_SUPPORTED] Test not supported for this form factor
 #else
 
-#include "utest/utest.h"
-#include "unity/unity.h"
-#include "greentea-client/test_env.h"
-#include "mbed.h"
-#include "MbedTester.h"
-#include "pinmap.h"
-#include "test_utils.h"
+#include "bootstrap/mbed_wait_api.h"
+#include "fpga_ci_test_shield/MbedTester.h"
+#include "fpga_ci_test_shield/test_utils.h"
 #include "gpio_fpga_test.h"
+#include "greentea-client/test_env.h"
+#include "greentea-custom_io/custom_io.h"
+#include "hal/gpio_api.h"
+#include "hal/pinmap.h"
+#include "unity/unity.h"
+#include "utest/utest.h"
 
 using namespace utest::v1;
 
@@ -321,6 +323,7 @@ Specification specification(greentea_test_setup, cases, greentea_test_teardown_h
 
 int main()
 {
+    greentea_init_custom_io();
     Harness::run(specification);
 }
 

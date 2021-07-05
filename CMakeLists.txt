@@ -187,6 +187,9 @@ add_subdirectory(tests/mbed_hal/lp_ticker EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/us_ticker_lp_ticker_common EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/us_ticker_lp_ticker_frequency EXCLUDE_FROM_ALL)
 
+# HAL tests with the FPGA CI test shield
+add_subdirectory(tests/mbed_hal_fpga_ci_test_shield/gpio EXCLUDE_FROM_ALL)
+
 if(${CMAKE_CROSSCOMPILING})
     # Ensure the words that make up the Mbed target name are separated with a hyphen, lowercase, and with the `mbed-` prefix.
     string(TOLOWER ${MBED_TARGET} MBED_TARGET_CONVERTED)
