@@ -175,20 +175,22 @@ add_library(test-harness INTERFACE)
 add_subdirectory(tools/unity)
 add_subdirectory(tools/utest)
 
+# FPGA CI test shield
 add_library(mbed-fpga-ci-test-shield INTERFACE)
 add_subdirectory(tools/fpga_ci_test_shield)
 
 # HAL tests
 add_subdirectory(tests/mbed_hal/crc EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/echo EXCLUDE_FROM_ALL)
+add_subdirectory(tests/mbed_hal/lp_ticker EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/trng EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/us_ticker EXCLUDE_FROM_ALL)
-add_subdirectory(tests/mbed_hal/lp_ticker EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/us_ticker_lp_ticker_common EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/us_ticker_lp_ticker_frequency EXCLUDE_FROM_ALL)
 
 # HAL tests with the FPGA CI test shield
 add_subdirectory(tests/mbed_hal_fpga_ci_test_shield/gpio EXCLUDE_FROM_ALL)
+add_subdirectory(tests/mbed_hal_fpga_ci_test_shield/gpio_irq EXCLUDE_FROM_ALL)
 
 if(${CMAKE_CROSSCOMPILING})
     # Ensure the words that make up the Mbed target name are separated with a hyphen, lowercase, and with the `mbed-` prefix.

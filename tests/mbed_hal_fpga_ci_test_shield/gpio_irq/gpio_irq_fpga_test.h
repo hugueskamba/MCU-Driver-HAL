@@ -22,6 +22,8 @@
 
 #if DEVICE_INTERRUPTIN
 
+#include "hal/gpio_api.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -39,8 +41,8 @@ void fpga_gpio_irq_test(PinName pin);
 /** Test that the gpio interrupt is generated correctly.
  *
  * Given board provides interrupt-in feature.
- * When gpio interrupt is configured to fire on rasing/falling/both edge(s).
- * Then on rasing/falling/any edge registered interrupt handler is called.
+ * When gpio interrupt is configured to fire on rising/falling/both edge(s).
+ * Then on rising/falling/any edge registered interrupt handler is called.
  *
  */
 void fpga_gpio_irq_init_free_test(PinName pin);
