@@ -180,6 +180,7 @@ add_subdirectory(tests/mbed_hal/crc EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/echo EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/trng EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/us_ticker EXCLUDE_FROM_ALL)
+add_subdirectory(tests/mbed_hal/lp_ticker EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/us_ticker_lp_ticker_common EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/us_ticker_lp_ticker_frequency EXCLUDE_FROM_ALL)
 

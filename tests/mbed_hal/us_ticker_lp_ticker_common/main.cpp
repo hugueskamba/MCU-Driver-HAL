@@ -42,7 +42,7 @@ extern "C" {
 #define US_PER_S 1000000
 
 #define FORCE_OVERFLOW_TEST (false)
-#define TICKER_INT_VAL 500
+#define TICKER_INT_VAL 1000
 #define TICKER_DELTA 10
 
 #define LP_TICKER_OVERFLOW_DELTA1   0   // this will allow to detect that ticker counter rollovers to 0
@@ -426,9 +426,8 @@ void ticker_increment_test(void)
 
                 repeat_cnt++;
             } else {
-                /* Check if we got 1 tick diff. */
-                if (next_tick_count - base_tick_count == 1 ||
-                        base_tick_count - next_tick_count == 1) {
+                /* Check if we got less than 2 ticks. */
+                if ((abs((int32_t)(next_tick_count - base_tick_count)) < 2) || (num_of_cycles < 2)) {
                     break;
                 }
 
@@ -444,11 +443,15 @@ void ticker_increment_test(void)
             }
         }
 
-        /* Since we are here we know that next_tick_count != base_tick_count.
-         * The accuracy of our measurement method is +/- 1 tick, so it is possible that
-         * next_tick_count == base_tick_count - 1. This is also valid result.
-         */
-        TEST_ASSERT_UINT32_WITHIN(1, next_tick_count, base_tick_count);
+        if (num_of_cycles >= 2) {
+            /* Since we are here we know that next_tick_count != base_tick_count.
+             * The accuracy of our measurement method is +/- 1 tick, so it is possible that
+             * next_tick_count == base_tick_count - 1. This is also valid result.
+             */
+            TEST_ASSERT_UINT32_WITHIN(1, next_tick_count, base_tick_count);
+        } else {
+            TEST_IGNORE_MESSAGE("core is too slow compare to the timer");
+        }
     }
 }
 

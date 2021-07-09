@@ -29,10 +29,10 @@ target_sources(mbed-core
         source/mbed_gpio.c
         # source/mbed_gpio_irq.c
         # source/mbed_itm_api.c
-        # source/mbed_lp_ticker_api.c
         source/mbed_pinmap_common.c
         # source/mbed_pinmap_default.cpp
         source/mbed_us_ticker_api.c
+        source/mbed_lp_ticker_api.c
         # source/static_pinmap.cpp
 
         source/mpu/mbed_mpu_v7m.c
