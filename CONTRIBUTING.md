@@ -31,3 +31,11 @@ See the License for the specific language governing permissions and limitations 
 Each commit must have at least one `Signed-off-by:` line from the committer to certify that the contribution is made under the terms of the [Developer Certificate of Origin](./DCO.txt).
 
 If you set your `user.name` and `user.email` as part of your git configuration, you can add a signoff to your commit automatically with `git commit -s`. You have to use your real name (i.e., pseudonyms or anonymous contributions cannot be made). This is because the DCO is a legally binding document.
+
+## Pull request guidelines
+
+- concise git commit messages (we recommend following Chris Beams 7 rules https://chris.beams.io/posts/git-commit/#seven-rules)
+- add a prefix to your commit message to highlight the area of relevance. Write prefixes in lowercase, followed by a colon, followed by a space, and then finally the commit title
+- linear git history - no merge commits allowed, always rebase your branch
+- preserve the history until the review is completed. Use `git commit --fixup` to add fixes. Once review is completed, run `git rebase --autosquash` to clean the history
+- every new addition to already opened pull request should be followed by a comment to update reviewers what has changed
