@@ -23,8 +23,6 @@
 #include "device.h"
 #include <stdint.h>
 
-#if DEVICE_FLASH
-
 #define MBED_FLASH_INVALID_SIZE     0xFFFFFFFF
 
 typedef struct flash_s flash_t;
@@ -125,8 +123,6 @@ uint8_t flash_get_erase_value(const flash_t *obj);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif
 
 #endif

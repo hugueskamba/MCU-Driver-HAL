@@ -13,13 +13,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-cmake_minimum_required(VERSION 3.19.0 FATAL_ERROR)
+add_library(sdfx-test-flash-functional_tests OBJECT)
 
-set(MBED_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../../.. CACHE INTERNAL "")
-set(TEST_TARGET mbed-hal-flash-functional-tests)
+target_sources(sdfx-test-flash-functional_tests
+    PRIVATE
+        main.cpp
+)
 
-include(${MBED_PATH}/tools/cmake/mbed_greentea.cmake)
-
-project(${TEST_TARGET})
-
-mbed_greentea_add_test(TEST_NAME ${TEST_TARGET})
+target_link_libraries(sdfx-test-flash-functional_tests
+    PRIVATE
+        mbed-os
+        greentea::client
+        test-harness
+)
