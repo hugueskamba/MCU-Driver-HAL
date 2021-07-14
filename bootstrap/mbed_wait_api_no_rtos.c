@@ -74,7 +74,6 @@ void wait_us(int us)
 #endif // DEVICE_USTICKER
 
 // This wait_ns is used by both RTOS and non-RTOS builds
-
 #ifdef __CORTEX_M
 #if (__CORTEX_M == 0 && !defined __CM0PLUS_REV) || __CORTEX_M == 1
 // Cortex-M0 and Cortex-M1 take 6 cycles per iteration - SUBS = 1, 2xNOP = 2, BCS = 3
@@ -83,7 +82,7 @@ void wait_us(int us)
       __CORTEX_M == 23
 // Cortex-M0+, M3, M4 and M23 take 5 cycles per iteration - SUBS = 1, 2xNOP = 2, BCS = 2
 #define LOOP_SCALER 5000
-#elif __CORTEX_M == 33
+#elif __CORTEX_M == 33 || __CORTEX_M == 81
 // Cortex-M33 can dual issue for 3 cycles per iteration (SUB,NOP) = 1, (NOP,BCS) = 2
 #define LOOP_SCALER 3000
 #elif __CORTEX_M == 7
