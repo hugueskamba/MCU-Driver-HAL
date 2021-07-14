@@ -17,6 +17,11 @@
 #ifndef __MBED_UTIL_ATOMIC_H__
 #define __MBED_UTIL_ATOMIC_H__
 
+// When set to 0, this disables the C++ templates for atomic operations that
+// require the mstd::type_identity provided by the mstd_type_traits header.
+// Setting this back ON will require some additional work on dependencies.
+#define EXTRA_DEPENDENCIES_REQUIRED__ATOMIC_TEMPLATES 0
+
 #include "cmsis.h"
 
 #include <stdbool.h>
@@ -881,6 +886,8 @@ MBED_FORCEINLINE uint64_t core_util_atomic_fetch_xor_explicit_u64(volatile uint6
 #ifdef __cplusplus
 } // extern "C"
 
+#if EXTRA_DEPENDENCIES_REQUIRED__ATOMIC_TEMPLATES
+
 #include <mstd_type_traits>
 
 // For each operation, two overloaded templates:
@@ -983,6 +990,8 @@ template<typename T> inline bool core_util_atomic_compare_exchange_weak_explicit
 template<typename T> inline T *core_util_atomic_fetch_add_explicit(T *volatile *valuePtr, ptrdiff_t arg, mbed_memory_order order) noexcept;
 /** \copydoc core_util_fetch_sub_explicit_ptr */
 template<typename T> inline T *core_util_atomic_fetch_sub_explicit(T *volatile *valuePtr, ptrdiff_t arg, mbed_memory_order order) noexcept;
+
+#endif // EXTRA_DEPENDENCIES_REQUIRED__ATOMIC_TEMPLATES
 
 #endif // __cplusplus
 
