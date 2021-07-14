@@ -90,9 +90,4 @@ macro(mbed_greentea_add_test)
 
     mbed_set_post_build(${TEST_NAME})
 
-    option(VERBOSE_BUILD "Have a verbose build process")
-    if(VERBOSE_BUILD)
-        set(CMAKE_VERBOSE_MAKEFILE ON)
-    endif()
-
 endmacro()
