@@ -14,4 +14,4 @@ See the [HAL porting guide](./porting/PORTING.md) for help with supporting new t
 
 ## Bootstrap documentation.
 
-See the [Bootstrap documentation](./bootstrap/BOOTSRAP.md).
+See the [Bootstrap documentation](./bootstrap/BOOTSTRAP.md).
