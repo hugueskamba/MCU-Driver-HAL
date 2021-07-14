@@ -34,8 +34,8 @@ If you set your `user.name` and `user.email` as part of your git configuration, 
 
 ## Pull request guidelines
 
-- concise git commit messages (we recommend following Chris Beams 7 rules https://chris.beams.io/posts/git-commit/#seven-rules)
-- add a prefix to your commit message to highlight the area of relevance. Write prefixes in lowercase, followed by a colon, followed by a space, and then finally the commit title
-- linear git history - no merge commits allowed, always rebase your branch
-- preserve the history until the review is completed. Use `git commit --fixup` to add fixes. Once review is completed, run `git rebase --autosquash` to clean the history
-- every new addition to already opened pull request should be followed by a comment to update reviewers what has changed
+- Git commit messages should be concise and must contain a proper description of the commit content. We recommend following Chris Beams 7 rules https://chris.beams.io/posts/git-commit/#seven-rules.
+- Add a prefix to your commit message to highlight the area of relevance. Write prefixes in lowercase, followed by a colon, followed by a space, and then finally the commit title.
+- Keep a linear git history: no merge commits are allowed, always rebase your branch.
+- Preserve the history until the review is completed. Use `git commit --fixup` to add fixes. Once review is completed, run `git rebase --autosquash` to clean the history.
+- Every new addition to an already opened pull request should be commented to inform the reviewers on what has changed.
