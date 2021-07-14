@@ -91,18 +91,18 @@ MBED_WEAK const PinList *pinmap_gpio_restricted_pins()
 
 //*** Default restricted peripherals ***
 #if DEVICE_SERIAL
+static int restricted_uart_peripherals[1] = { 0 };
+
+static PeripheralList restricted_uart_peripheral_list = {
+    .count = 0,
+    .peripheral = restricted_uart_peripherals
+};
+
 MBED_WEAK const PeripheralList *pinmap_uart_restricted_peripherals()
 {
-    static const int stdio_uart = pinmap_peripheral(CONSOLE_TX, serial_tx_pinmap());
+    restricted_uart_peripherals[0] = pinmap_peripheral(CONSOLE_TX, serial_tx_pinmap());
+    restricted_uart_peripheral_list.count = 1;
 
-    static const int peripherals[] = {
-        stdio_uart
-    };
-
-    static const PeripheralList peripheral_list = {
-        sizeof peripherals / sizeof peripherals[0],
-        peripherals
-    };
-    return &peripheral_list;
+    return &restricted_uart_peripheral_list;
 }
 #endif
