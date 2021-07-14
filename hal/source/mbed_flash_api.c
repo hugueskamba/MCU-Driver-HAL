@@ -16,8 +16,6 @@
 
 #include "hal/flash_api.h"
 
-#if DEVICE_FLASH
-
 #include "bootstrap/mbed_toolchain.h"
 #include <string.h>
 
@@ -26,5 +24,3 @@ MBED_WEAK int32_t flash_read(flash_t *obj, uint32_t address, uint8_t *data, uint
     memcpy(data, (const void *)address, size);
     return 0;
 }
-
-#endif

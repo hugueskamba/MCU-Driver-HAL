@@ -182,6 +182,7 @@ add_subdirectory(tools/fpga_ci_test_shield)
 # HAL tests
 add_subdirectory(tests/mbed_hal/crc EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/echo EXCLUDE_FROM_ALL)
+add_subdirectory(tests/mbed_hal/flash/functional_tests EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/lp_ticker EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/trng EXCLUDE_FROM_ALL)
 add_subdirectory(tests/mbed_hal/us_ticker EXCLUDE_FROM_ALL)

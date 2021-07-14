@@ -14,23 +14,34 @@
  * limitations under the License.
  */
 
-#if !DEVICE_FLASH
-#error [NOT_SUPPORTED] Flash API not supported for this target
-#else
-
 #include "utest/utest.h"
 #include "unity/unity.h"
 #include "greentea-client/test_env.h"
-#include "platform/mbed_mpu_mgmt.h"
+#include "greentea-custom_io/custom_io.h"
+#include "bootstrap/mbed_mpu_mgmt.h"
 
-#include "mbed.h"
-#include "flash_api.h"
+#include "bootstrap/mbed_critical.h"
+#include "bootstrap/mbed_toolchain.h"
+#include "hal/flash_api.h"
+#include "hal/us_ticker_api.h"
+
+#if defined(TOOLCHAIN_GCC_ARM)
+    extern uint32_t __etext;
+    extern uint32_t __data_start__;
+    extern uint32_t __data_end__;
+    #define FLASHIAP_APP_ROM_END_ADDR (((uint32_t) &__etext) + ((uint32_t) &__data_end__) - ((uint32_t) &__data_start__))
+#elif defined(TOOLCHAIN_ARM)
+    extern uint32_t Load$$LR$$LR_IROM1$$Limit[];
+    #define FLASHIAP_APP_ROM_END_ADDR ((uint32_t)Load$$LR$$LR_IROM1$$Limit)
+#endif
 
 using namespace utest::v1;
 
 #define TEST_CYCLES         10000000
 
-#define ALLOWED_DRIFT_PPM   (1000000/5000)    //0.5%
+#define ALLOWED_DRIFT_PPM   (1000000U/5000U)    //0.5%
+
+#define US_TICKER_OV_LIMIT 35000
 
 /*
     return values to be checked are documented at:
@@ -41,33 +52,10 @@ using namespace utest::v1;
 #define ALIGN_DOWN(x, a) ((x)& ~((a) - 1))
 #endif
 
-static int timer_diff_start;
+static uint32_t timer_diff_start;
 
-static void erase_range(flash_t *flash, uint32_t addr, uint32_t size)
-{
-    while (size > 0) {
-        uint32_t sector_size = flash_get_sector_size(flash, addr);
-        TEST_ASSERT_NOT_EQUAL(0, sector_size);
-        int32_t ret = flash_erase_sector(flash, addr);
-        TEST_ASSERT_EQUAL_INT32(0, ret);
-        addr += sector_size;
-        size = size > sector_size ? size - sector_size : 0;
-    }
-}
-#if defined (__ICCARM__)
-MBED_NOINLINE
-static void delay_loop(uint32_t count)
-{
-    __asm volatile(
-        "loop: \n"
-        " SUBS %0, %0, #1 \n"
-        " BCS.n  loop\n"
-        : "+r"(count)
-        :
-        : "cc"
-    );
-}
-#elif  defined ( __GNUC__ ) ||  defined(__ARMCC_VERSION)
+
+#if  defined ( __GNUC__ ) ||  defined(__ARMCC_VERSION)
 MBED_NOINLINE
 static void delay_loop(uint32_t count)
 {
@@ -86,26 +74,50 @@ static void delay_loop(uint32_t count)
 }
 #endif
 
-MBED_NOINLINE
-static int time_cpu_cycles(uint32_t cycles)
+/* Since according to the ticker requirements min acceptable counter size is
+ * - 12 bits for low power timer - max count = 4095,
+ * - 16 bits for high frequency timer - max count = 65535
+ * then all test cases must be executed in this time windows.
+ * HAL ticker layer handles counter overflow and it is not handled in the target
+ * ticker drivers. Ensure we have enough time to execute test case without overflow.
+ */
+void overflow_protect()
 {
-    Timer timer;
+    uint32_t time_window = US_TICKER_OV_LIMIT;
+    const ticker_interface_t *intf = get_us_ticker_data()->interface;
 
+    const uint32_t ticks_now = intf->read();
+    const ticker_info_t *p_ticker_info = intf->get_info();
+
+    const uint32_t max_count = ((1 << p_ticker_info->bits) - 1);
+
+    if ((max_count - ticks_now) > time_window) {
+        return;
+    }
+
+    while (intf->read() >= ticks_now);
+}
+
+MBED_NOINLINE
+static uint32_t time_cpu_cycles(uint32_t cycles)
+{
     core_util_critical_section_enter();
 
-    timer.start();
+    uint32_t start = (us_ticker_read() * 1000000) / us_ticker_get_info()->frequency;
 
     delay_loop(cycles);
 
-    timer.stop();
+    uint32_t end = (us_ticker_read() * 1000000) / us_ticker_get_info()->frequency;
 
     core_util_critical_section_exit();
 
-    return timer.read_us();
+    return (end - start);
 }
 
 void flash_init_test()
 {
+    overflow_protect();
+
     timer_diff_start = time_cpu_cycles(TEST_CYCLES);
 
     flash_t test_flash;
@@ -232,8 +244,10 @@ void flash_program_page_test()
 // cache settings weren't changed
 void flash_clock_and_cache_test()
 {
-    const int timer_diff_end = time_cpu_cycles(TEST_CYCLES);
-    const int acceptable_range = timer_diff_start / (ALLOWED_DRIFT_PPM);
+    overflow_protect();
+
+    const uint32_t timer_diff_end = time_cpu_cycles(TEST_CYCLES);
+    const uint32_t acceptable_range = timer_diff_start / (ALLOWED_DRIFT_PPM);
     TEST_ASSERT_UINT32_WITHIN(acceptable_range, timer_diff_start, timer_diff_end);
 }
 
@@ -249,6 +263,8 @@ utest::v1::status_t greentea_test_setup(const size_t number_of_cases)
 {
     mbed_mpu_manager_lock_ram_execution();
     mbed_mpu_manager_lock_rom_write();
+
+    us_ticker_init();
 
     GREENTEA_SETUP(20, "default_auto");
     return greentea_test_setup_handler(number_of_cases);
@@ -266,7 +282,6 @@ Specification specification(greentea_test_setup, cases, greentea_test_teardown);
 
 int main()
 {
+    greentea_init_custom_io();
     Harness::run(specification);
 }
-
-#endif !DEVICE_FLASH

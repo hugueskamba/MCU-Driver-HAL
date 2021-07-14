@@ -100,8 +100,6 @@ uint32_t flash_get_start_address(const flash_t *obj);
 uint32_t flash_get_size(const flash_t *obj);
 ```
 
-To enable flash HAL, ensure the C macro `DEVICE_FLASH=1` is defined in the CMake variable `MBED_TARGET_DEFINITIONS`.
-
 ## Tests
 
 The tests for the `FlashIAP` flash HAL is available at `tests/mbed_hal/flash`.
