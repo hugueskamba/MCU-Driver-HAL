@@ -20,8 +20,6 @@
 #ifndef CRC_API_TESTS_H
 #define CRC_API_TESTS_H
 
-#include "device.h"
-
 #if DEVICE_CRC
 
 #ifdef __cplusplus

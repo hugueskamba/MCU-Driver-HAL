@@ -15,6 +15,11 @@
 
 add_library(sdfx-test-crc OBJECT)
 
+target_include_directories(sdfx-test-crc
+    PRIVATE
+        .
+)
+
 target_sources(sdfx-test-crc
     PRIVATE
         main.cpp

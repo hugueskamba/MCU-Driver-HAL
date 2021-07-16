@@ -22,6 +22,8 @@
 #include "greentea-custom_io/custom_io.h"
 #include "math.h"
 #include "crc_api.h"
+#include "crc_api_tests.h"
+#include "device.h"
 
 #if !DEVICE_CRC
 #error [NOT_SUPPORTED] CRC not supported for this target
