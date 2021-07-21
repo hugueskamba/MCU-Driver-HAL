@@ -23,8 +23,8 @@
 #include "fpga_ci_test_shield/MbedTester.h"
 #include "utest/utest_print.h"
 
-#ifdef DEVICE_USTICKER
-#include "us_ticker_api.h"
+#ifdef DEVICE_USTICKER && !MBED_CONF_TARGET_INIT_US_TICKER_AT_BOOT
+#include "hal/us_ticker_api.h"
 #endif
 
 #define mbed_tester_printf(...)
@@ -590,7 +590,7 @@ MbedTester::MbedTester(const PinList *form_factor, const PinList *exclude_pins)
       _clk_index(MbedTester::physical_nc), _mosi_index(MbedTester::physical_nc), _miso_index(MbedTester::physical_nc), _aux_index(MbedTester::physical_nc),
       _clk(NULL), _mosi(NULL), _miso(NULL), _aux(NULL)
 {
-#ifdef DEVICE_USTICKER
+#ifdef DEVICE_USTICKER && !MBED_CONF_TARGET_INIT_US_TICKER_AT_BOOT
     us_ticker_init();
 #endif
     _reset();
