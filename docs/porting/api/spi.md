@@ -3,7 +3,7 @@
 ---
 **Note**
 
-The _Master/Slave_ terminology for I2C is considered obsolete. _Master_ is now _Controller_ and _Slave_ is now _Peripheral_. As such MOSI/MISO/SS are now referred as SDI/SDO/CS. This will reflected in the API in the future.
+The _Master/Slave_ terminology for I2C is considered obsolete. _Master_ is now _Controller_ and _Slave_ is now _Peripheral_. As such MOSI/MISO/SS are now referred as SDI/SDO/CS. This will be reflected in the API in the future.
 
 ---
 
