@@ -44,7 +44,20 @@ typedef struct {
     const int *peripheral;
 } PeripheralList;
 
+/**
+ * Configures the GPIO pin and sets the alternate function
+ *
+ * @param pin GPIO pin number
+ * @param function  Alternate function to set
+ */
 void pin_function(PinName pin, int function);
+
+/**
+ * Sets pin mode for the given GPIO pin
+ *
+ * @param pin GPIO pin number
+ * @param mode Pin mode to set
+ */
 void pin_mode(PinName pin, PinMode mode);
 
 uint32_t pinmap_peripheral(PinName pin, const PinMap *map);
